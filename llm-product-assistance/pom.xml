@@ -113,6 +113,7 @@
     </dependencies>
 
     <build>
+        <finalName>llm-product-assistance</finalName>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
