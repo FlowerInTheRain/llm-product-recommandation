@@ -12,13 +12,13 @@ import jakarta.ws.rs.core.MediaType
 @Path("/llm")
 class ExampleResource {
     @Inject
-    lateinit var service: MistralService
+    lateinit var service: MistralServices
 
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     fun hello(request:LlmRequest) : String {
-        Log.info(service.test(request.content))
-        return service.test(request.content)
+        Log.info(service.answerQuestion(request.content))
+        return service.answerQuestion(request.content)
     }
 }

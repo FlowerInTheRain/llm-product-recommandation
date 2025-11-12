@@ -25,3 +25,76 @@
 .read-the-docs {
   color: #888;
 }
+
+.llm-chat {
+    border: 1px solid #ffdd00;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    white-space: pre-line;
+    background-color: #ffdd00;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x:hidden;
+}
+
+.llm-chat span:nth-child(odd) {
+    padding: 15px;
+    background-color: #ffffff; /* or any color you want */
+    color: #1a1a1a;
+    width: fit-content;
+    position: relative;
+    right: -60px;
+    border-radius: 3px;
+    max-width: 250px;
+    float: right;
+    white-space: pre-line;
+}
+
+.llm-chat span:nth-child(even) {
+    padding: 15px;
+    background-color: #D4D3DD; /* or any color you want */
+    color: #1a1a1a;
+    width: fit-content;
+    position: relative;
+    left: 10px;
+    border-radius: 3px;
+    white-space: pre-line;
+
+}
+.header {
+    height: 80px;
+    background-color: white;
+    color: #1a1a1a;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    gap: 14px;
+}
+
+.llm-chat-logo {
+    position: relative;
+    left: 0;
+}
+
+.header span {
+    text-align: justify;
+    align-items: unset;
+    display: unset;
+    justify-content: unset;
+    white-space: normal;
+}
+
+span {
+    text-align: justify;
+    margin: 0;        /* supprime toutes les marges */
+    padding: 0;       /* supprime le padding au cas où */
+    line-height: 1.4;
+    display: block;
+}
