@@ -11,7 +11,7 @@ import org.eclipse.microprofile.rest.client.annotation.RegisterProvider
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 
 @RegisterRestClient(configKey = "mistral-api")
-@ClientHeaderParam(name = "Authorization", value = ["Bearer Yg96w8EiOly6EMPqd4UwOx1spCpISPE8"])
+@ClientHeaderParam(name = "Authorization", value = ["Bearer "])
 @RegisterProvider(LoggingRequestFilter::class)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
