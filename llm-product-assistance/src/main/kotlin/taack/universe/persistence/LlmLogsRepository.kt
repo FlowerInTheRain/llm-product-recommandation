@@ -4,5 +4,5 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository
 import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
-class LlmMetricsRepository: PanacheRepository<LlmMetricsEntity?> {
+class LlmLogsRepository: PanacheRepository<LlmLogsEntity?> {
 }

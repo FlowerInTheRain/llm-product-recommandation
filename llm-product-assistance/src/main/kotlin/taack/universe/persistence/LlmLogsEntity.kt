@@ -5,7 +5,7 @@ import java.sql.Timestamp
 
 @Entity
 @Table(name = "llm_prompts")
-class LlmMetricsEntity {
+class LlmLogsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
