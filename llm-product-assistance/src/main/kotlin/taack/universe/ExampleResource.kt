@@ -17,8 +17,7 @@ class ExampleResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun hello(request:LlmRequest) : String {
-        Log.info(service.answerQuestion(request.content))
-        return service.answerQuestion(request.content)
+    fun hello(request: LlmRequest) : String {
+        return service.simpleChat(request.content)
     }
 }
