@@ -63,6 +63,7 @@
     max-width: 250px;
     white-space: pre-line;
     margin-left: 5px;
+    word-break: break-all;
 }
 
 .llm-chat span:nth-child(even) {
