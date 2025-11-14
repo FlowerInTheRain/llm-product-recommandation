@@ -1,12 +1,17 @@
 package taack.universe.implementation.mistral
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import dev.langchain4j.agent.tool.Tool
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
-
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonIgnoreUnknownKeys
+@OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
 class MistralModels {
 
     @Serializable
     data class ChatCompletionRequest(
-        val messages: List<MessageRequest>,
+        val messages: List<Message>,
         val agent_id: String? = null
 
 
@@ -16,25 +21,27 @@ class MistralModels {
         }
     }
     @Serializable
-    data class MessageRequest(
-        val id:Long,
-        val mistralRole: String = MistralRole.USER.roleValue,
-        val content: String
-    )
-    @Serializable
+    @JsonIgnoreUnknownKeys
     data class Message(
-        val role: String = "user",
-        val tool_calls: String? = null,
+        val role: String = MistralRole.USER.roleValue,
+        val content: String
+    )
+
+    @Serializable
+    data class MessageRequest(
+        val id:Long? = null,
+        val role: String = MistralRole.USER.roleValue,
         val content: String
     )
     @Serializable
+    @JsonIgnoreUnknownKeys
     data class ChatCompletionResponse(
         val id: String,
         val `object`: String,
         val model: String,
         val created: Long,
         val choices: List<Choice>,
-        val usage: Usage
+        val usage: Usage,
     )
     @Serializable
     data class Choice(

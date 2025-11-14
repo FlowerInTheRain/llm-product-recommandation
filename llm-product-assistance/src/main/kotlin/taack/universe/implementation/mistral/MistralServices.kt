@@ -1,8 +1,10 @@
 package taack.universe.implementation.mistral
 
+import io.quarkus.logging.Log
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.transaction.Transactional
+import kotlinx.serialization.json.Json
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import taack.universe.llm.domain.LlmResource
@@ -10,43 +12,43 @@ import taack.universe.llm.domain.LlmService
 import taack.universe.persistence.LlmLogsRepository
 
 @ApplicationScoped
-class MistralServices (
-    @RestClient private val mistralClient: MistralAPIClient,
-    @Inject var  llmLogsRepository: LlmLogsRepository,
-) : LlmService {
+class MistralServices : LlmService {
+    @RestClient
+    lateinit var mistralClient: MistralAPIClient
+    @Inject
+    lateinit var  llmLogsRepository: LlmLogsRepository
     @ConfigProperty(name = "mistral.api.agent_id")
     lateinit var mistry: String
-    companion object {
-        const val FORMATTER = "From : %s  && With content :  %s"
-    }
-    @Override
     @Transactional
-    fun startChat(userMessage: List<MistralModels.MessageRequest>): LlmResource.LlmResponse {
+    override fun startChat(userMessage: List<MistralModels.MessageRequest>): LlmResource.LlmResponse {
         val request = MistralModels.ChatCompletionRequest(
             agent_id = mistry,
-            messages = userMessage
+            messages = userMessage.map { it -> MistralModels.Message(
+                role = it.role,
+                content = it.content
+            ) }
         )
-        val userContentFormatted : String
         val parentId:Long
         if(userMessage.size == 1) {
-            userContentFormatted = String.format(FORMATTER, MistralRole.USER.roleValue, userMessage
-                .first().content)
-            parentId = llmLogsRepository.saveLlmMetrics(mistry,userContentFormatted)
+            val userContent : String = userMessage.first().content
+            parentId = llmLogsRepository.saveLlmMetrics(mistry, userContent, MistralRole.USER)
         } else {
-            userContentFormatted = String.format(FORMATTER, MistralRole.USER.roleValue, userMessage
-                .last().content)
+            val userContent : String = userMessage.last().content
             val userMessageParentID = userMessage[userMessage.size - 2].id
-            parentId = llmLogsRepository.saveLlmMetrics(mistry,userContentFormatted, userMessageParentID)
+            parentId = llmLogsRepository.saveLlmMetrics(mistry,userContent, MistralRole.USER, userMessageParentID)
         }
+
+        Log.info(Json.encodeToString(request))
 
         try {
             val response = mistralClient.agentCompletion(request)
-            val agentResponse = response.choices.firstOrNull()?.message?.content
-            val systemContentFormatted = String.format(FORMATTER, MistralRole.USER.roleValue, agentResponse)
-            val llmID = llmLogsRepository.saveLlmMetrics(mistry,systemContentFormatted, parentId)
+            val agentResponse = response.choices.firstOrNull()?.message?.content!!
+            val llmID = llmLogsRepository.saveLlmMetrics(mistry,agentResponse, MistralRole.SYSTEM, parentId)
             return LlmResource.LlmResponse(llmID, agentResponse ?: "No response")
         } catch (e: Exception) {
-            "Error: ${e.message}"
+            Log.info(e.toString())
+            Log.info(e.message)
+            Log.info(e.cause!!.message)
             throw Exception("aïe")
         }
     }

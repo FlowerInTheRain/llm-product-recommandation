@@ -19,7 +19,7 @@ class LlmResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     fun hello(request: LlmRequest) : LlmResponse {
-        return service.simpleChat(request.content)
+        return service.startChat(request.content)
     }
 
     @Serializable
