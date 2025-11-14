@@ -75,6 +75,7 @@ button:focus-visible {
     position: absolute;
     bottom: 20px;
     right: 40px;
+    background-color: transparent;
 }
 
 .pulse-button {
@@ -95,9 +96,9 @@ button:focus-visible {
     color: white;
     border: none;
     border-radius: 50%;
-    background: #5a99d4;
+    background: #ffdd00;
     cursor: pointer;
-    box-shadow: 0 0 0 0 rgba(90, 153, 212, .5);
+    box-shadow: 0 0 0 0 rgba(255, 221, 0, .5);
     -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
     -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
     -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);

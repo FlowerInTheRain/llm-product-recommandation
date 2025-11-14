@@ -1,10 +1,10 @@
-package taack.universe;
+package taack.universe.implementation.mistral;
 
-public enum Role {
+public enum MistralRole {
     SYSTEM("system"),
     USER("role");
     private final String value;
-    Role(String roleValue) {
+    MistralRole(String roleValue) {
         this.value = roleValue;
     }
     public String getRoleValue() {

@@ -1,4 +1,4 @@
-package taack.universe
+package taack.universe.llm.domain
 
 import jakarta.inject.Inject
 import jakarta.ws.rs.Consumes
@@ -7,10 +7,11 @@ import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
 import kotlinx.serialization.Serializable
-import taack.universe.mistral.MistralServices
+import taack.universe.implementation.mistral.LlmRequest
+import taack.universe.implementation.mistral.MistralServices
 
 @Path("/llm")
-class ExampleResource {
+class LlmResource {
     @Inject
     lateinit var service: MistralServices
 

@@ -1,7 +1,6 @@
-package taack.universe.mistral
+package taack.universe.implementation.mistral
 
 import kotlinx.serialization.Serializable
-import taack.universe.Role
 
 class MistralModels {
 
@@ -19,7 +18,7 @@ class MistralModels {
     @Serializable
     data class MessageRequest(
         val id:Long,
-        val role: String = Role.USER.roleValue,
+        val mistralRole: String = MistralRole.USER.roleValue,
         val content: String
     )
     @Serializable
